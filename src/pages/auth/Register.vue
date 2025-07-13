@@ -35,7 +35,7 @@ const onSubmit = handleSubmit(async (formData) => {
       password: formData.password,
     };
     const res = await axios.post(
-      "https://ecom-api-ecru.vercel.app/api/register",
+      `${import.meta.env.VITE_API_URL}/api/register`,
       payload
     );
     toast.success(res.data);

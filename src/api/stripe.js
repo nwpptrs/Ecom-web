@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const payment = async (token) => {
   return await axios.post(
-    "https://ecom-api-ecru.vercel.app/api/payment-intent",
+    `${import.meta.env.VITE_API_URL}/api/payment-intent`,
     {},
     {
       headers: {

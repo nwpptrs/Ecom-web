@@ -22,7 +22,7 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async login(payload) {
       const res = await axios.post(
-        "https://ecom-api-ecru.vercel.app/api/login",
+        `${import.meta.env.VITE_API_URL}/api/login`,
         payload
       );
       this.token = res.data.token;
