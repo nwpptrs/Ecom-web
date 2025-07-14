@@ -7,6 +7,7 @@ import { saveUserAddress } from "../api/user";
 
 const toast = useToast();
 const auth = useAuthStore();
+const isLoading = ref(false);
 
 // local refs แยกออกจาก auth.user
 const nameRef = ref("");
@@ -41,13 +42,19 @@ const onSubmit = async () => {
 
 // โหลดข้อมูลผู้ใช้ครั้งแรกตอนเข้าหน้า
 onMounted(async () => {
+  isLoading.value = true;
   await auth.fetchUser();
   loadInitialForm();
+  isLoading.value = false;
 });
 </script>
 
 <template>
+  <div v-if="isLoading" class="text-center text-gray-500 py-10">
+    กำลังโหลดข้อมูล...
+  </div>
   <div
+    v-else
     class="max-w-xl mx-auto p-6 bg-white rounded-xl shadow border border-gray-400 mt-6"
   >
     <h1 class="text-xl font-bold mb-4">โปรไฟล์ของคุณ</h1>

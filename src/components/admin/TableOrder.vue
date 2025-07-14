@@ -68,18 +68,18 @@ onMounted(() => {
               <td class="p-3 border-b py-4">
                 <li v-for="item in order.products" :key="item.id">
                   {{ item.product.title }}
-                  <span class="font-semibold"
+                  <span class="font-semibold whitespace-nowrap"
                     >({{ item.count }} x
                     {{ formatCurrencyTHB(item.price) }})</span
                   >
                 </li>
               </td>
-              <td class="p-3 border-b font-semibold text-green-600">
+              <td class="p-3 border-b font-semibold whitespace-nowrap">
                 ฿ {{ formatCurrencyTHB(order.cartTotal) }}
               </td>
               <td class="p-3 border-b">
                 <span
-                  class="px-3 py-1 rounded-full text-sm font-medium text-white"
+                  class="px-3 py-1 rounded-full text-sm font-medium text-white whitespace-nowrap"
                   :class="{
                     'bg-gray-500': order.orderStatus === 'รอดำเนินการ',
                     'bg-blue-500': order.orderStatus === 'กำลังดำเนินการ',

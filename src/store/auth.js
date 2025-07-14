@@ -3,6 +3,9 @@ import axios from "axios";
 import { currentUser, currentAdmin } from "../api/auth";
 import { listCategory } from "../api/category";
 import { listProduct, searchFilters } from "../api/product";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -73,7 +76,8 @@ export const useAuthStore = defineStore("auth", {
         const existingProduct = this.carts.find(
           (item) => item.id === product.id
         );
-
+        toast.clear();
+        toast.success("เพิ่มสินค้าเข้าตะกร้าแล้ว");
         if (existingProduct) {
           existingProduct.count += 1;
         } else {

@@ -101,13 +101,13 @@ onMounted(() => handleUserCart());
             type="text"
             name="name"
             placeholder="กรอกชื่อ"
-            class="px-2 border rounded border-gray-400 font-light"
+            class="px-2 border rounded border-gray-400 font-semibold"
           />
         </div>
         <textarea
           v-model="address"
           placeholder="กรอกที่อยู่ในการจัดส่ง"
-          class="w-full px-2 h-30 border rounded border-gray-400 font-light"
+          class="w-full px-2 h-30 border rounded border-gray-400 font-semibold"
         ></textarea>
         <button
           @click="handleSaveAddress"

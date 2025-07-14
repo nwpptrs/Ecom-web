@@ -21,7 +21,10 @@ const addCart = store.actionAddtoCart;
   >
     ไม่พบสินค้า
   </div>
-  <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div
+    v-else
+    class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 max-w-screen-xl mx-auto"
+  >
     <div
       v-for="product in props.products"
       :key="product.id"
@@ -46,7 +49,7 @@ const addCart = store.actionAddtoCart;
           <h3 class="font-semibold">{{ product.title }}</h3>
           <div class="flex justify-between py-2">
             <p class="text-sm text-gray-500">{{ product.description }}</p>
-            <p class="text-xs font-medium text-gray-700">
+            <p class="whitespace-nowrap text-xs font-medium text-gray-700">
               เหลืออยู่: {{ product.quantity }}
             </p>
           </div>

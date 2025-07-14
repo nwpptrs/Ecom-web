@@ -5,9 +5,11 @@ import { toTypedSchema } from "@vee-validate/zod";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
 import axios from "axios";
+import { ref } from "vue";
 
 const router = useRouter();
 const toast = useToast();
+const isSubmitting = ref(false);
 
 const registerSchema = z
   .object({
@@ -29,6 +31,10 @@ const { value: password } = useField("password");
 const { value: confirmPassword } = useField("confirmPassword");
 
 const onSubmit = handleSubmit(async (formData) => {
+  if (isSubmitting.value) return;
+
+  isSubmitting.value = true;
+
   try {
     const payload = {
       email: formData.email,
@@ -45,13 +51,17 @@ const onSubmit = handleSubmit(async (formData) => {
   } catch (error) {
     const msg = error?.response?.data?.message || "เกิดข้อผิดพลาด";
     toast.error(msg);
+  } finally {
+    isSubmitting.value = false;
   }
 });
 </script>
 
 <template>
-  <div class="flex items-start justify-center h-screen mx-auto mt-30">
-    <div class="bg-gray-100 p-15 rounded-2xl shadow border border-gray-200">
+  <div class="flex items-start justify-center h-screen mx-auto mt-25">
+    <div
+      class="bg-gray-100 p-15 rounded-2xl shadow border border-gray-200 w-90"
+    >
       <form
         @submit.prevent="onSubmit"
         class="flex flex-col items-center mx-auto"
@@ -89,10 +99,10 @@ const onSubmit = handleSubmit(async (formData) => {
 
         <button
           type="submit"
-          :disabled="Object.keys(errors).length > 0"
-          class="bg-red-600 text-white w-80 py-2 rounded-xl hover:bg-red-700 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          :disabled="isSubmitting || Object.keys(errors).length > 0"
+          class="bg-red-600 text-white w-80 py-2 rounded-xl transition-all hover:bg-red-700 cursor-pointer disabled:opacity-60"
         >
-          สมัครสมาชิก
+          {{ isSubmitting ? "กำลังสมัคร..." : "สมัครสมาชิก" }}
         </button>
       </form>
     </div>

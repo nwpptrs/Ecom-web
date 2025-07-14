@@ -49,11 +49,13 @@ onMounted(fetchProduct);
 </script>
 
 <template>
-  <ArrowLeftCircleIcon
-    class="w-10 absolute top-17 left-10 cursor-pointer"
-    @click="$router.back()"
-  />
   <div v-if="product" class="max-w-6xl mx-auto px-4 py-10">
+    <div class="mb-2">
+      <ArrowLeftCircleIcon
+        class="w-10 absolute top-17 left-3 cursor-pointer md:left-5"
+        @click="$router.back()"
+      />
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
       <div>
         <Swiper

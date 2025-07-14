@@ -70,8 +70,6 @@ onMounted(() => {
 
 <template>
   <div class="max-w-screen-2xl mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6">ประวัติการสั่งซื้อ</h1>
-
     <!-- Loading -->
     <div v-if="isLoading" class="text-center text-gray-500 py-10">
       กำลังโหลดข้อมูล...
@@ -84,6 +82,7 @@ onMounted(() => {
 
     <!-- Orders List -->
     <div v-else>
+      <h1 class="text-2xl font-bold mb-6">ประวัติการสั่งซื้อ</h1>
       <div
         v-for="item in orders"
         :key="item.id"

@@ -101,7 +101,7 @@ const handleDelete = async (public_id) => {
 <template>
   <div>
     <input
-      class="bg-gray-200 border p-1"
+      class="bg-gray-200 border p-1 w-full"
       type="file"
       :multiple="!single"
       accept="image/*"

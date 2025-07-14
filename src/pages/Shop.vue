@@ -15,20 +15,22 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="flex h-screen">
+  <div class="flex flex-col lg:flex-row h-auto lg:h-screen">
+    <!-- Search (หมวดหมู่) -->
     <aside
-      class="w-1/6 bg-white p-4 overflow-y-auto mt-2 rounded-xl shadow-lg border border-gray-300 pr-9"
+      class="w-full lg:w-1/6 bg-white p-4 overflow-y-auto mt-2 rounded-xl shadow-lg border border-gray-300 pr-9 order-1 lg:order-none"
     >
       <SearchCard />
     </aside>
-    <main class="flex-1 p-4 overflow-y-auto">
+
+    <!-- Product list -->
+    <main class="w-full lg:flex-1 p-4 overflow-y-auto order-2 lg:order-none">
       <h2 class="text-xl font-bold mb-4">สินค้าทั้งหมด</h2>
-      <div>
-        <ProductCard :products="products" />
-      </div>
+      <ProductCard :products="products" />
     </main>
+
     <aside
-      class="w-1/4 bg-white p-4 overflow-y-auto mt-2 rounded-xl shadow-lg border border-gray-300"
+      class="hidden lg:block lg:w-1/4 bg-white p-4 overflow-y-auto mt-2 rounded-xl shadow-lg border border-gray-300"
     >
       <h2 class="text-lg font-semibold mb-4">ตะกร้าสินค้า</h2>
       <CartCard />

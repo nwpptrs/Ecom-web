@@ -33,9 +33,9 @@ const handlelistToSum = async () => {
 </script>
 <template>
   <div class="bg-gray-300 rounded mt-2 p-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- left -->
-      <div class="md:col-span-2">
+      <div class="lg:col-span-2">
         <!-- top -->
         <div class="flex gap-2 items-center">
           <ListBulletIcon class="w-6 h-6" />
@@ -66,7 +66,7 @@ const handlelistToSum = async () => {
         </div>
       </div>
       <!-- right -->
-      <div v-if="cart.length > 0" class="bg-white h-70 md:mt-10 rounded-xl p-6">
+      <div v-if="cart.length > 0" class="bg-white h-70 lg:mt-10 rounded-xl p-6">
         <div class="space-y-5">
           <div class="font-bold text-2xl my-2">ยอดรวม</div>
           <div class="flex justify-between font-semibold">
