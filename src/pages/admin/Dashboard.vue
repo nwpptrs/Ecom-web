@@ -1,4 +1,4 @@
 <script setup></script>
 <template>
-  <div>Dashboard</div>
+  <div class="text-2xl">แดชบอร์ด</div>
 </template>

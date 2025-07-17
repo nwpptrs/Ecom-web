@@ -11,6 +11,7 @@ const toast = useToast();
 
 const orders = ref([]);
 const isLoading = ref(false);
+const isSubmitting = ref(false);
 
 const showModal = ref(false);
 const selectedOrderId = ref(null);
@@ -28,7 +29,6 @@ const handleGetOrder = async () => {
     orders.value = res.data;
   } catch (error) {
     console.log(error);
-    toast.error("โหลดข้อมูลไม่สำเร็จ");
   } finally {
     isLoading.value = false;
   }
@@ -47,6 +47,8 @@ const closeModal = () => {
 };
 
 const handleSubmitReview = async () => {
+  if (isSubmitting.value) return;
+  isSubmitting.value = true;
   try {
     const res = await createUserReview(token, {
       orderId: selectedOrderId.value,
@@ -203,10 +205,12 @@ onMounted(() => {
           ยกเลิก
         </button>
         <button
-          class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700"
+          class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50"
           @click="handleSubmitReview"
+          :disabled="isSubmitting"
         >
-          ส่งรีวิว
+          <span v-if="isSubmitting">กำลังส่ง...</span>
+          <span v-else>ส่งรีวิว</span>
         </button>
       </div>
     </div>

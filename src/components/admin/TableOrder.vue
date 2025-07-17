@@ -7,6 +7,13 @@ import { formatCurrencyTHB } from "../../utils/format";
 const store = useAuthStore();
 const token = store.token;
 const orders = ref([]);
+const showProductModal = ref(false);
+const selectedProducts = ref([]);
+
+const openProductModal = (products) => {
+  selectedProducts.value = products;
+  showProductModal.value = true;
+};
 
 const handleGetOrders = async () => {
   try {
@@ -33,9 +40,9 @@ onMounted(() => {
 </script>
 <template>
   <div
-    class="text-md container bg-white mx-auto p-4 shadow-2xs flex items-center justify-center flex-col"
+    class="text-md container bg-white mx-auto p-4 shadow-2xs flex items-center justify-center flex-col max-w-screen-2xl rounded-2xl"
   >
-    <div class="container mx-auto px-4 py-6">
+    <div class="container mx-auto px-4 py-6 border rounded-2xl">
       <h1 class="text-2xl font-semibold mb-4">รายการสั่งซื้อ</h1>
       <div>
         <table
@@ -65,15 +72,15 @@ onMounted(() => {
               <td class="p-3 border-b font-semibold">
                 {{ order.address }}
               </td>
-              <td class="p-3 border-b py-4">
-                <li v-for="item in order.products" :key="item.id">
-                  {{ item.product.title }}
-                  <span class="font-semibold whitespace-nowrap"
-                    >({{ item.count }} x
-                    {{ formatCurrencyTHB(item.price) }})</span
-                  >
-                </li>
+              <td class="p-3 border-b text-sm">
+                <button
+                  class="text-blue-600 cursor-pointer"
+                  @click="openProductModal(order.products)"
+                >
+                  ดูสินค้า ({{ order.products.length }})
+                </button>
               </td>
+
               <td class="p-3 border-b font-semibold whitespace-nowrap">
                 ฿ {{ formatCurrencyTHB(order.cartTotal) }}
               </td>
@@ -105,6 +112,38 @@ onMounted(() => {
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div>
+    <div
+      v-if="showProductModal"
+      class="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">รายการสินค้า</h2>
+          <button
+            @click="showProductModal = false"
+            class="text-gray-500 hover:text-black text-xl"
+          >
+            ✕
+          </button>
+        </div>
+        <ul class="space-y-2 max-h-[300px] overflow-y-auto">
+          <li
+            v-for="item in selectedProducts"
+            :key="item.id"
+            class="text-sm border-b pb-2"
+          >
+            {{ item.product.title }}<br />
+            <span class="text-gray-600">
+              {{ item.count }} x {{ formatCurrencyTHB(item.price) }}
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

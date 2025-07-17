@@ -31,7 +31,7 @@ const debouncedSearch = debounce(() => {
     !search &&
     categoryId.length === 0 &&
     priceRange[0] === 0 &&
-    priceRange[1] === 30000;
+    priceRange[1] === store.maxPrice;
 
   if (isDefault) {
     getProduct();
@@ -78,7 +78,8 @@ onUnmounted(() => {
     <Slider
       v-model="priceSelected"
       :min="0"
-      :max="30000"
+      :max="store.maxPrice"
+      :step="1000"
       range
       class="w-full"
     />

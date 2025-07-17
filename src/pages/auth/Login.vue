@@ -15,7 +15,7 @@ const form = reactive({
 });
 
 const onSubmit = async () => {
-  if (isSubmitting.value) return; // ป้องกันการกดรัว
+  if (isSubmitting.value) return;
   isSubmitting.value = true;
 
   try {

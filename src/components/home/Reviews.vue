@@ -18,7 +18,7 @@ const props = defineProps({
 
 <template>
   <div class="p-5">
-    <div class="text-2xl mb-4">รีวิวจากลูกค้า</div>
+    <div class="text-2xl mb-4">รีวิวจากผู้ใช้งาน</div>
 
     <Swiper
       v-if="reviews.length"
@@ -40,6 +40,6 @@ const props = defineProps({
       </SwiperSlide>
     </Swiper>
 
-    <div v-else class="text-gray-500">ยังไม่มีรีวิวจากลูกค้า</div>
+    <div v-else class="text-gray-500">ยังไม่มีรีวิวในตอนนี้</div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch, watchEffect } from "vue";
+import { computed, ref, watch } from "vue";
 import { useAuthStore } from "../store/auth";
 import {
   ChevronDownIcon,
@@ -51,7 +51,7 @@ const debouncedSearch = debounce(() => {
     !search &&
     categoryId.length === 0 &&
     priceRange[0] === 0 &&
-    priceRange[1] === 30000;
+    priceRange[1] === store.maxPrice;
 
   if (isDefault) {
     getProduct();
@@ -62,13 +62,14 @@ const debouncedSearch = debounce(() => {
 
 watch(searchQuery, debouncedSearch);
 
-watchEffect(() => {
-  if (route.path !== "/shop") {
-    store.searchQuery = "";
-    store.selectedCategories = [];
-    store.priceSelected = [0, 30000];
+watch(
+  () => route.path,
+  (newPath, oldPath) => {
+    if (oldPath === "/shop" && newPath !== "/shop") {
+      store.resetFilters();
+    }
   }
-});
+);
 
 const handleLogout = () => {
   logout();

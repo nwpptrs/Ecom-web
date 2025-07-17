@@ -59,11 +59,11 @@ onMounted(() => {
     <div
       class="text-md font-semibold p-4 flex items-center justify-center flex-col shadow border rounded-2xl"
     >
-      <h1 class="text-xl font-semibold mb-2">Product Management</h1>
+      <h1 class="text-xl font-semibold mb-2">จัดการสินค้า</h1>
       <form @submit.prevent="onSubmit" class="my-4 flex-col flex gap-2">
         <input
           v-model="form.title"
-          placeholder="Name Product"
+          placeholder="ชื่อสินค้า"
           type="text"
           class="border p-1 rounded"
           name="title"
@@ -71,14 +71,14 @@ onMounted(() => {
         />
         <input
           v-model="form.description"
-          placeholder="Description"
+          placeholder="รายละเอียด"
           type="text"
           class="border p-1 rounded"
           name="description"
         />
         <input
           v-model="form.price"
-          placeholder="Price"
+          placeholder="ราคา"
           type="number"
           class="border p-1 rounded"
           name="price"
@@ -86,7 +86,7 @@ onMounted(() => {
         />
         <input
           v-model="form.quantity"
-          placeholder="Quantity"
+          placeholder="จำนวน"
           type="number"
           class="border p-1 rounded"
           name="quantity"
@@ -98,7 +98,7 @@ onMounted(() => {
           class="border rounded p-1"
           required
         >
-          <option value="" disabled>Please Select</option>
+          <option value="" disabled>เลือกหมวดหมู่</option>
           <option v-for="cat in categories" :key="cat.id" :value="cat.id">
             {{ cat.name }}
           </option>
@@ -106,27 +106,26 @@ onMounted(() => {
         <Uploadfile v-model="form.images" />
 
         <button class="bg-sky-300 px-4 py-1 rounded hover:bg-sky-400">
-          Add Product
+          เพิ่มสินค้า
         </button>
       </form>
     </div>
     <div class="container mx-auto px-4 py-6 shadow border rounded-2xl bg-white">
-      <h1 class="text-2xl font-semibold mb-6">Product List</h1>
-
+      <h1 class="text-2xl font-semibold mb-6">รายการสินค้า</h1>
       <table
         class="min-w-full bg-white border border-gray-200 rounded overflow-hidden"
       >
         <thead class="bg-gray-100 text-gray-700 text-left font-bold">
           <tr>
-            <th class="p-3 border-b">No.</th>
-            <th class="p-3 border-b">Picture</th>
-            <th class="p-3 border-b">Title</th>
-            <th class="p-3 border-b">Price</th>
-            <th class="p-3 border-b">Quantity</th>
-            <th class="p-3 border-b">Category</th>
-            <th class="p-3 border-b">Sold</th>
-            <th class="p-3 border-b">Update At</th>
-            <th class="p-3 border-b text-center">Actions</th>
+            <th class="p-3 border-b">ลำดับ</th>
+            <th class="p-3 border-b">รูปภาพ</th>
+            <th class="p-3 border-b">ชื่อสินค้า</th>
+            <th class="p-3 border-b">ราคา</th>
+            <th class="p-3 border-b">จำนวน</th>
+            <th class="p-3 border-b">หมวดหมู่</th>
+            <th class="p-3 border-b">จำนวนขาย</th>
+            <th class="p-3 border-b">อัปเดตเมื่อ</th>
+            <th class="p-3 border-b text-center">การจัดการ</th>
           </tr>
         </thead>
         <tbody>
@@ -145,7 +144,9 @@ onMounted(() => {
               />
               <span v-else class="text-gray-400">No image</span>
             </td>
-            <td class="p-3 border-b font-medium">{{ product.title }}</td>
+            <td class="p-3 border-b font-mediu max-w-xs break-words">
+              {{ product.title }}
+            </td>
             <td class="p-3 border-b text-green-600 font-semibold">
               ฿ {{ formatCurrencyTHB(product.price) }}
             </td>
@@ -173,7 +174,7 @@ onMounted(() => {
       </table>
     </div>
     <div v-if="products.length === 0" class="text-center text-gray-500 mt-4">
-      No products found.
+      ไม่พบสินค้า
     </div>
   </div>
 </template>

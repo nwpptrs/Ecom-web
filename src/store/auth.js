@@ -16,7 +16,9 @@ export const useAuthStore = defineStore("auth", {
     carts: [],
     searchQuery: "",
     selectedCategories: [],
-    priceSelected: [0, 30000],
+    priceSelected: [0, 0],
+    maxPrice: 0,
+    priceInitialized: false,
   }),
   getters: {
     cartSubtotal: (state) =>
@@ -59,10 +61,27 @@ export const useAuthStore = defineStore("auth", {
       try {
         const res = await listProduct(count);
         this.products = res.data.products;
+
+        if (this.products.length > 0) {
+          const prices = this.products.map((p) => p.price);
+          this.maxPrice = Math.max(...prices);
+
+          if (!this.priceInitialized) {
+            this.priceSelected = [0, this.maxPrice];
+            this.priceInitialized = true;
+          }
+        } else {
+          this.maxPrice = 100000;
+          if (!this.priceInitialized) {
+            this.priceSelected = [0, this.maxPrice];
+            this.priceInitialized = true;
+          }
+        }
       } catch (error) {
         console.log(error);
       }
     },
+
     async actionSearchFilter(arg) {
       try {
         const res = await searchFilters(arg);
@@ -113,12 +132,21 @@ export const useAuthStore = defineStore("auth", {
     clearCart() {
       this.carts = [];
     },
+    resetFilters() {
+      this.searchQuery = "";
+      this.selectedCategories = [];
+      this.priceSelected = [0, this.maxPrice];
+      this.priceInitialized = false;
+    },
     logout() {
       this.token = null;
       this.user = null;
       this.categories = [];
       this.products = [];
       this.carts = [];
+      this.resetFilters();
+      this.priceInitialized = false;
+      this.maxPrice = 0;
     },
   },
   persist: true,
