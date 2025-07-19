@@ -11,11 +11,10 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-    const [res1, res2] = await Promise.all([
-      productBy({ sort: "sold", order: "desc", limit: 5 }),
-      listReviews(),
-    ]);
+    const res1 = await productBy({ sort: "sold", order: "desc", limit: 5 });
     bestSellerProducts.value = res1.data.products;
+
+    const res2 = await listReviews();
     reviews.value = res2.data;
   } catch (e) {
     console.error(e);
@@ -26,11 +25,21 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="loading" class="text-center text-gray-500 py-10">
-    กำลังโหลดข้อมูล...
+  <div
+    v-if="loading"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-white"
+  >
+    <lottie-player
+      src="../../src/assets/Loading Cat.json"
+      background="transparent"
+      speed="1"
+      style="width: 150px; height: 150px; margin: 0 auto"
+      loop
+      autoplay
+    ></lottie-player>
   </div>
-  <template v-else>
+  <div v-else>
     <BestSeller :products="bestSellerProducts" />
     <Reviews :reviews="reviews" />
-  </template>
+  </div>
 </template>

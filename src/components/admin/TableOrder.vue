@@ -3,12 +3,15 @@ import { onMounted, ref } from "vue";
 import { useAuthStore } from "../../store/auth";
 import { getOrdersAdmin, changeOrdersStatus } from "../../api/admin";
 import { formatCurrencyTHB } from "../../utils/format";
+import { useToast } from "vue-toastification";
 
 const store = useAuthStore();
 const token = store.token;
 const orders = ref([]);
 const showProductModal = ref(false);
 const selectedProducts = ref([]);
+const isLoading = ref(true);
+const toast = useToast();
 
 const openProductModal = (products) => {
   selectedProducts.value = products;
@@ -16,21 +19,30 @@ const openProductModal = (products) => {
 };
 
 const handleGetOrders = async () => {
+  isLoading.value = true;
   try {
     const res = await getOrdersAdmin(token);
     orders.value = res.data;
     console.log(orders);
   } catch (error) {
     console.log(error);
+  } finally {
+    isLoading.value = false;
   }
 };
 
 const handleChangeStatus = async (orderId, status) => {
+  const targetOrder = orders.value.find((o) => o.id === orderId);
+  if (!targetOrder) return;
+
+  const originalStatus = targetOrder.orderStatus;
+  targetOrder.orderStatus = status;
+
   try {
-    const res = await changeOrdersStatus(token, orderId, status);
-    handleGetOrders();
+    await changeOrdersStatus(token, orderId, status);
   } catch (error) {
-    console.log(error);
+    targetOrder.orderStatus = originalStatus;
+    toast.error("เปลี่ยนสถานะไม่สำเร็จ");
   }
 };
 
@@ -60,6 +72,37 @@ onMounted(() => {
             </tr>
           </thead>
           <tbody>
+            <tr v-if="isLoading">
+              <td colspan="7" class="py-10 text-center text-gray-500">
+                <svg
+                  class="animate-spin h-6 w-6 mx-auto mb-2 text-red-600"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  />
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+                กำลังโหลดออเดอร์ทั้งหมด...
+              </td>
+            </tr>
+
+            <tr v-else-if="orders.length === 0">
+              <td colspan="7" class="py-10 text-center text-gray-400">
+                ไม่พบออเดอร์ในระบบ
+              </td>
+            </tr>
             <tr
               v-for="(order, index) in orders"
               :key="order.id"

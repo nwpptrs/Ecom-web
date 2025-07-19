@@ -50,8 +50,18 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="isLoading" class="text-center text-gray-500 py-10">
-    กำลังโหลดข้อมูล...
+  <div
+    v-if="isLoading"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-white"
+  >
+    <lottie-player
+      src="../../src/assets/Profile user card.json"
+      background="transparent"
+      speed="1"
+      style="width: 200px; height: 200px; margin: 0 auto"
+      loop
+      autoplay
+    ></lottie-player>
   </div>
   <div
     v-else

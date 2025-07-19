@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, computed, reactive } from "vue";
+import { onMounted, computed, reactive, ref } from "vue";
 import { createProduct, removeProduct } from "../../api/product";
 import { useToast } from "vue-toastification";
 import { useAuthStore } from "../../store/auth";
@@ -13,6 +13,7 @@ const token = auth.token;
 const categories = computed(() => auth.categories);
 const getProduct = auth.getProduct;
 const products = computed(() => auth.products);
+const loading = ref(false);
 
 const initialstate = {
   title: "",
@@ -26,6 +27,7 @@ const initialstate = {
 const form = reactive({ ...initialstate });
 
 const onSubmit = async () => {
+  loading.value = true;
   try {
     const res = await createProduct(token, form);
     console.log(res);
@@ -35,6 +37,8 @@ const onSubmit = async () => {
   } catch (error) {
     const msg = error?.response?.data?.message;
     toast.error(msg);
+  } finally {
+    loading.value = false;
   }
 };
 const handleRemove = async (id) => {
@@ -105,8 +109,11 @@ onMounted(() => {
         </select>
         <Uploadfile v-model="form.images" />
 
-        <button class="bg-sky-300 px-4 py-1 rounded hover:bg-sky-400">
-          เพิ่มสินค้า
+        <button
+          :disabled="loading"
+          class="bg-sky-300 px-4 py-2 rounded hover:bg-sky-400 disabled:bg-gray-300"
+        >
+          {{ loading ? "กำลังเพิ่มสินค้า..." : "เพิ่มสินค้า" }}
         </button>
       </form>
     </div>

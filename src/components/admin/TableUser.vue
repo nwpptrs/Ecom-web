@@ -13,13 +13,17 @@ const store = useAuthStore();
 const token = store.token;
 const users = ref([]);
 const tost = useToast();
+const isLoading = ref(true);
 
 const handleGetUsers = async () => {
+  isLoading.value = true;
   try {
     const res = await getListUserAdmin(token);
     users.value = res.data.users;
   } catch (error) {
     tost.error("เกิดข้อผิดพลาด");
+  } finally {
+    isLoading.value = false;
   }
 };
 
@@ -76,7 +80,39 @@ onMounted(() => {
           </tr>
         </thead>
         <tbody>
+          <tr v-if="isLoading">
+            <td colspan="5" class="py-10 text-center text-gray-500">
+              <svg
+                class="animate-spin h-6 w-6 mx-auto mb-2 text-red-600"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                />
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                />
+              </svg>
+              กำลังโหลดผู้ใช้งาน...
+            </td>
+          </tr>
+
+          <tr v-else-if="users.length === 0">
+            <td colspan="5" class="py-10 text-center text-gray-400">
+              ไม่พบผู้ใช้งาน
+            </td>
+          </tr>
           <tr
+            v-else
             v-for="(user, index) in users"
             :key="user.id"
             class="hover:bg-gray-50 transition"

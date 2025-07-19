@@ -1,4 +1,5 @@
 <script setup>
+import { formatEmail } from "../../utils/format";
 const props = defineProps({
   review: {
     type: Object,
@@ -10,16 +11,18 @@ console.log(props);
 
 <template>
   <div
-    class="border p-6 rounded-xl shadow-sm border-gray-200 h-full flex flex-col justify-between"
+    class="border p-6 rounded-xl shadow-sm border-gray-200 h-[220px] flex flex-col justify-between"
   >
-    <div class="text-sm text-gray-700 mb-3">“{{ review.comment }}”</div>
+    <div class="text-sm text-gray-700 mb-3 line-clamp-3">
+      “{{ review.comment }}”
+    </div>
 
     <div class="flex items-center justify-between mt-auto gap-2">
       <div
         class="text-xs text-gray-500 truncate max-w-[70%]"
         :title="`โดย: ${review.user.email}`"
       >
-        โดย: {{ review.user.email }}
+        โดย: {{ formatEmail(review.user.email) }}
       </div>
       <div class="flex-shrink-0">
         <span v-for="i in 5" :key="i">
@@ -33,7 +36,7 @@ console.log(props);
       </div>
     </div>
 
-    <div class="flex gap-3 mt-4">
+    <div class="flex gap-3 mt-4 overflow-x-auto">
       <div
         v-for="(item, index) in review.order.products"
         :key="index"
@@ -46,7 +49,9 @@ console.log(props);
             loading="lazy"
           />
         </router-link>
-        <div class="text-xs text-center">{{ item.product.title }}</div>
+        <div class="text-xs text-center line-clamp-2">
+          {{ item.product.title }}
+        </div>
       </div>
     </div>
   </div>

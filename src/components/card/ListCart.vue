@@ -32,36 +32,40 @@ const handlelistToSum = async () => {
 };
 </script>
 <template>
-  <div class="bg-gray-300 rounded mt-2 p-8">
+  <div class="bg-gray-100 rounded-2xl mt-2 p-8 border border-gray-300">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- left -->
       <div class="lg:col-span-2">
-        <!-- top -->
-        <div class="flex gap-2 items-center">
-          <ListBulletIcon class="w-6 h-6" />
-          <p class="font-bold text-2xl">
-            รายการสินค้า {{ cart.length }} สินค้า
-          </p>
-        </div>
         <div
-          v-for="product in cart"
-          :key="product.id"
-          class="bg-white p-5 rounded-2xl my-3 flex gap-4 items-center"
+          class="max-h-[calc(100vh-400px)] md:max-h-[calc(100vh-150px)] overflow-y-auto pr-3"
         >
-          <img
-            v-if="product.images.length"
-            :src="product.images[0].url"
-            alt="Product Image"
-            class="w-16 h-16 object-cover rounded"
-          />
-          <div class="flex-1">
-            <h3 class="font-bold">{{ product.title }}</h3>
-            <p class="text-sm text-gray-500 mt-1">
-              {{ formatCurrencyTHB(product.price) }} x {{ product.count }}
+          <!-- top -->
+          <div class="flex gap-2 items-center">
+            <ListBulletIcon class="w-6 h-6" />
+            <p class="font-bold text-2xl">
+              รายการสินค้า {{ cart.length }} สินค้า
             </p>
           </div>
-          <div class="font-semibold text-red-600">
-            ฿{{ formatCurrencyTHB(product.price * product.count) }}
+          <div
+            v-for="product in cart"
+            :key="product.id"
+            class="bg-white p-5 rounded-2xl my-3 flex gap-4 items-center"
+          >
+            <img
+              v-if="product.images.length"
+              :src="product.images[0].url"
+              alt="Product Image"
+              class="w-16 h-16 object-cover rounded"
+            />
+            <div class="flex-1">
+              <h3 class="font-bold">{{ product.title }}</h3>
+              <p class="text-sm text-gray-500 mt-1">
+                {{ formatCurrencyTHB(product.price) }} x {{ product.count }}
+              </p>
+            </div>
+            <div class="font-semibold text-red-600">
+              ฿{{ formatCurrencyTHB(product.price * product.count) }}
+            </div>
           </div>
         </div>
       </div>
@@ -79,7 +83,7 @@ const handlelistToSum = async () => {
             <button
               :disabled="isProcessing"
               @click="handlelistToSum"
-              class="rounded-lg px-6 py-3 text-white w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              class="rounded-lg px-6 py-3 text-white w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 flex items-center justify-center gap-2"
             >
               <svg
                 v-if="isProcessing"
@@ -109,7 +113,7 @@ const handlelistToSum = async () => {
 
             <router-link to="shop">
               <button
-                class="border border-gray-400 w-full py-2 rounded-xl hover:border-gray-600"
+                class="border border-gray-400 w-full py-3 rounded-xl hover:border-gray-600"
               >
                 แก้ไขรายการ
               </button>

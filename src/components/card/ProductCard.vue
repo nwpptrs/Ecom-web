@@ -28,7 +28,7 @@ const addCart = store.actionAddtoCart;
     <div
       v-for="product in props.products"
       :key="product.id"
-      class="border p-8 rounded-xl shadow-red-200 shadow-sm border-gray-200"
+      class="flex flex-col h-full border p-8 rounded-xl shadow-red-200 shadow-sm border-gray-200"
     >
       <router-link :to="`/product/${product.id}`">
         <div
@@ -46,16 +46,20 @@ const addCart = store.actionAddtoCart;
           >
         </div>
         <div class="py-2">
-          <h3 class="font-semibold">{{ product.title }}</h3>
           <div class="flex justify-between py-2">
-            <p class="text-sm text-gray-500">{{ product.description }}</p>
-            <p class="whitespace-nowrap text-xs font-medium text-gray-700">
+            <div class="font-semibold">{{ product.title }}</div>
+            <p class="text-nowrap text-xs font-medium text-gray-700 pt-1">
               เหลืออยู่: {{ product.quantity }}
+            </p>
+          </div>
+          <div class="flex justify-between py-2">
+            <p class="text-sm text-gray-500 truncate">
+              {{ product.description }}
             </p>
           </div>
         </div>
       </router-link>
-      <div class="flex justify-between items-center mt-auto">
+      <div class="flex justify-between items-center mt-auto pt-4">
         <p class="font-semibold text-sm text-red-600">
           ฿{{ formatCurrencyTHB(product.price) }}
         </p>

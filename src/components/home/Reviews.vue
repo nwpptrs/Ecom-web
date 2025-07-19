@@ -17,13 +17,11 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="p-5">
+  <div class="p-5" v-if="reviews.length">
     <div class="text-2xl mb-4">รีวิวจากผู้ใช้งาน</div>
-
     <Swiper
-      v-if="reviews.length"
       :modules="[Navigation, Pagination, Autoplay]"
-      :slides-per-view="3"
+      :slides-per-view="4"
       :space-between="20"
       :loop="true"
       :autoplay="{ delay: 3000, disableOnInteraction: false }"
@@ -39,7 +37,5 @@ const props = defineProps({
         <ReviewCard :review="review" />
       </SwiperSlide>
     </Swiper>
-
-    <div v-else class="text-gray-500">ยังไม่มีรีวิวในตอนนี้</div>
   </div>
 </template>

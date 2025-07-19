@@ -21,7 +21,6 @@ let stripe, elements, cardNumber, cardExpiry, cardCvc;
 
 const errorMessage = ref("");
 const loading = ref(false);
-const country = ref("TH");
 
 onMounted(async () => {
   stripe = await stripePromise;
@@ -58,11 +57,6 @@ const handleSubmit = async () => {
   const { paymentMethod, error } = await stripe.createPaymentMethod({
     type: "card",
     card: cardNumber,
-    billing_details: {
-      address: {
-        country: country.value,
-      },
-    },
   });
 
   if (error) {
@@ -123,18 +117,6 @@ const handleSubmit = async () => {
           <label class="block mb-1 font-medium text-gray-700">CVC</label>
           <div id="card-cvc" class="border rounded-md p-3"></div>
         </div>
-      </div>
-
-      <div>
-        <label class="block mb-1 font-medium text-gray-700">ประเทศ</label>
-        <select
-          v-model="country"
-          class="w-full border rounded-md p-2 focus:outline-none focus:ring focus:border-blue-300"
-        >
-          <option value="TH">Thailand</option>
-          <option value="US">United States</option>
-          <option value="JP">Japan</option>
-        </select>
       </div>
 
       <button

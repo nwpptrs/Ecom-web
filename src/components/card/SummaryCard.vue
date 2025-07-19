@@ -17,8 +17,10 @@ const isProcessing = ref(false);
 const toast = useToast();
 const router = useRouter();
 const isLoading = ref(true);
+const loading = ref(false);
 
 const handleSaveAddress = async () => {
+  loading.value = true;
   try {
     if (!address.value && !name.value) {
       return toast.warning("กรุณากรอกชื่อและที่อยู่");
@@ -32,6 +34,8 @@ const handleSaveAddress = async () => {
     console.log(res);
   } catch (error) {
     console.log(error);
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -65,73 +69,71 @@ const handleProceedToPayment = () => {
 onMounted(() => handleUserCart());
 </script>
 <template>
-  <div v-if="isLoading" class="text-center py-10">
-    <svg
-      class="animate-spin h-8 w-8 mx-auto text-red-600"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <circle
-        class="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        stroke-width="4"
-      />
-      <path
-        class="opacity-75"
-        fill="currentColor"
-        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-      />
-    </svg>
-    กำลังโหลดข้อมูล...
+  <div
+    v-if="isLoading"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-white"
+  >
+    <lottie-player
+      src="../../src/assets/shopping cart.json"
+      background="transparent"
+      speed="1"
+      style="width: 200px; height: 200px; margin: 0 auto"
+      loop
+      autoplay
+    ></lottie-player>
   </div>
   <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-8 my-4">
     <!-- left -->
     <div
-      class="h-65 bg-gray-200 rounded-xl p-4 border border-gray-400 text-center"
+      class="h-65 bg-gray-100 rounded-xl p-4 border border-gray-300 text-center"
     >
       <div class="space-y-1">
-        <h1 class="text-2xl font-bold">ที่อยู่ในการจัดส่ง</h1>
+        <h1 class="text-2xl font-semibold">รายละเอียดในการจัดส่ง</h1>
         <div class="flex w-full">
           <input
             v-model="name"
             type="text"
             name="name"
             placeholder="กรอกชื่อ"
-            class="px-2 border rounded border-gray-400 font-semibold"
+            class="px-2 border rounded border-gray-400"
           />
         </div>
         <textarea
           v-model="address"
           placeholder="กรอกที่อยู่ในการจัดส่ง"
-          class="w-full px-2 h-30 border rounded border-gray-400 font-semibold"
+          class="w-full px-2 h-30 border rounded border-gray-400"
         ></textarea>
         <button
+          :disabled="loading"
           @click="handleSaveAddress"
-          class="bg-red-500 rounded-lg px-4 py-2 text-white cursor-pointer hover:bg-red-600"
+          class="bg-red-500 rounded-lg px-4 py-2 text-white cursor-pointer hover:bg-red-600 disabled:bg-gray-400"
         >
-          บันทึกที่อยู่
+          {{ loading ? "กำลังบันทึก..." : "บันทึกรายละเอียด" }}
         </button>
       </div>
     </div>
     <!-- right -->
-    <div class="bg-gray-200 rounded-xl p-4 border border-gray-400 text-center">
+    <div class="bg-gray-100 rounded-xl p-4 border border-gray-300 text-center">
       <div>
         <h1 class="text-2xl font-bold">คำสั่งซื้อของคุณ</h1>
         <div
-          v-for="product in products"
-          :key="product.id"
-          class="flex justify-between my-4 text-left"
+          class="max-h-[calc(100vh-550px)] md:max-h-[calc(100vh-350px)] overflow-y-auto pr-3"
         >
-          <div>
-            <p>{{ product.product.title }}</p>
-            <p>จำนวน: {{ product.count }} x {{ product.price }}</p>
-          </div>
-          <div class="text-red-600 font-medium">
-            ฿{{ formatCurrencyTHB(product.count * product.price) }}
+          <div
+            v-for="product in products"
+            :key="product.id"
+            class="flex justify-between my-4 text-left"
+          >
+            <div>
+              <p>{{ product.product.title }}</p>
+              <p>
+                จำนวน: ({{ product.count }} x
+                {{ formatCurrencyTHB(product.price) }})
+              </p>
+            </div>
+            <div class="text-red-600 font-medium">
+              ฿{{ formatCurrencyTHB(product.count * product.price) }}
+            </div>
           </div>
         </div>
         <hr class="text-gray-400" />
@@ -151,7 +153,7 @@ onMounted(() => handleUserCart());
         <button
           :disabled="!savedAddress || isProcessing"
           @click="handleProceedToPayment"
-          class="rounded-lg px-6 py-3 text-white w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          class="rounded-lg px-6 py-3 text-white w-full bg-red-500 hover:bg-red-600 disabled:bg-gray-400 flex items-center justify-center gap-2"
         >
           <svg
             v-if="isProcessing"

@@ -59,7 +59,7 @@ onUnmounted(() => {
 
 <template>
   <div class="text-lg mb-2">หมวดหมู่</div>
-  <div class="whitespace-nowrap flex flex-row gap-2 lg:flex-col">
+  <div class="text-nowrap flex flex-row gap-2 lg:flex-col overflow-x-scroll">
     <label
       v-for="cat in categories"
       :key="cat.id"

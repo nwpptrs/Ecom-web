@@ -15,8 +15,10 @@ const addCart = store.actionAddtoCart;
 </script>
 
 <template>
-  <div class="border p-8 rounded-xl shadow-red-200 shadow-sm border-gray-200">
-    <router-link :to="`/product/${product.id}`">
+  <div
+    class="flex flex-col h-[430px] border p-8 rounded-xl shadow-red-200 shadow-sm border-gray-200"
+  >
+    <router-link :to="`/product/${product.id}`" class="flex-grow flex flex-col">
       <div
         class="mb-2 overflow-hidden rounded h-48 flex items-center justify-center"
       >
@@ -33,18 +35,23 @@ const addCart = store.actionAddtoCart;
           No image
         </span>
       </div>
-      <div class="py-2">
-        <h3 class="font-semibold">{{ product.title }}</h3>
+      <div class="py-2 flex-grow flex flex-col">
         <div class="flex justify-between py-2">
-          <p class="text-sm text-gray-500">{{ product.description }}</p>
-          <p class="text-xs font-medium text-gray-700">
+          <div class="font-semibold">{{ product.title }}</div>
+          <p class="text-nowrap text-xs font-medium text-gray-700 pt-1">
             เหลืออยู่: {{ product.quantity }}
+          </p>
+        </div>
+        <div class="py-2">
+          <p class="text-sm text-gray-500 line-clamp-2">
+            {{ product.description }}
           </p>
         </div>
       </div>
     </router-link>
 
-    <div class="flex justify-between items-center mt-4">
+    <!-- ปุ่มและราคาด้านล่าง -->
+    <div class="flex justify-between items-center pt-4 mt-auto">
       <p class="font-semibold text-sm text-red-600">
         ฿{{ formatCurrencyTHB(product.price) }}
       </p>

@@ -55,9 +55,9 @@ const handleSubmitReview = async () => {
       rating: rating.value,
       comment: comment.value,
     });
+    closeModal();
     toast.success(res.data.message);
     await handleGetOrder();
-    closeModal();
   } catch (err) {
     console.log(err);
     const msg = err.response?.data?.message || "เกิดข้อผิดพลาดในการส่งรีวิว";
@@ -71,10 +71,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="max-w-screen-2xl mx-auto px-4 py-8">
+  <div class="max-w-screen-2xl mx-auto px-4">
     <!-- Loading -->
-    <div v-if="isLoading" class="text-center text-gray-500 py-10">
-      กำลังโหลดข้อมูล...
+    <div
+      v-if="isLoading"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-white"
+    >
+      <lottie-player
+        src="../../src/assets/Man with task list.json"
+        background="transparent"
+        speed="1"
+        style="width: 200px; height: 200px; margin: 0 auto"
+        loop
+        autoplay
+      ></lottie-player>
     </div>
 
     <!-- No Orders -->
@@ -84,21 +94,23 @@ onMounted(() => {
 
     <!-- Orders List -->
     <div v-else>
-      <h1 class="text-2xl font-bold mb-6">ประวัติการสั่งซื้อ</h1>
+      <h1 class="text-2xl font-bold py-8">ประวัติการสั่งซื้อ</h1>
       <div
         v-for="item in orders"
         :key="item.id"
         class="bg-white p-6 rounded-2xl shadow border mb-6"
       >
         <!-- Header -->
-        <div class="flex justify-between items-center mb-4">
+        <div
+          class="flex flex-col justify-between items-left mb-4 md:items-center md:flex-row"
+        >
           <div>
             <p class="text-sm text-gray-500">สั่งซื้อวันที่</p>
             <p class="font-medium text-gray-700">
               {{ formatDate(item.createdAt.toLocaleString()) }}
             </p>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 mt-1">
             <button
               v-if="item.orderStatus === 'เสร็จสิ้น' && !item.review"
               @click="openReviewModal(item.id)"
@@ -121,13 +133,15 @@ onMounted(() => {
         </div>
 
         <!-- Table -->
-        <table class="w-full text-sm text-left border-t border-gray-200">
+        <table
+          class="w-full text-sm text-left border-t border-gray-200 table-fixed"
+        >
           <thead class="bg-gray-50 text-gray-600 uppercase">
             <tr>
-              <th class="py-2">สินค้า</th>
-              <th class="py-2">ราคา</th>
-              <th class="py-2">จำนวน</th>
-              <th class="py-2">ทั้งหมด</th>
+              <th class="py-2 w-1/2">สินค้า</th>
+              <th class="py-2 text-center">ราคา</th>
+              <th class="py-2 text-center">จำนวน</th>
+              <th class="py-2 text-center">ทั้งหมด</th>
             </tr>
           </thead>
           <tbody>
@@ -137,9 +151,11 @@ onMounted(() => {
               class="border-t border-gray-200"
             >
               <td class="py-2">{{ p.product.title }}</td>
-              <td class="py-2">{{ formatCurrencyTHB(p.product.price) }}</td>
-              <td class="py-2">{{ p.count }}</td>
-              <td class="py-2">
+              <td class="py-2 text-center">
+                {{ formatCurrencyTHB(p.product.price) }}
+              </td>
+              <td class="py-2 text-center">{{ p.count }}</td>
+              <td class="py-2 text-center">
                 {{ formatCurrencyTHB(p.count * p.product.price) }}
               </td>
             </tr>

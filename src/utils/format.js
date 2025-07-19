@@ -12,3 +12,8 @@ export const formatCurrencyTHB = (number) => {
 export const formatDate = (date) => {
   return dayjs(date).format("D MMM YYYY (HH:mm)");
 };
+
+export const formatEmail = (email) => {
+  const [name] = email.split("@");
+  return name.slice(0, 1) + "***" + name.slice(-1);
+};

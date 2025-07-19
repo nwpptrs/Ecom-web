@@ -18,6 +18,7 @@ const route = useRoute();
 const token = auth.token;
 const id = route.params.id;
 const product = ref(null);
+const loading = ref(true);
 
 const fetchProduct = async () => {
   try {
@@ -25,6 +26,8 @@ const fetchProduct = async () => {
     product.value = res.data.products;
   } catch (error) {
     console.log(error);
+  } finally {
+    loading.value = false;
   }
 };
 
@@ -41,15 +44,24 @@ const decrease = () => {
   if (product.value) auth.decrement(product.value.id);
 };
 
-const addToCart = () => {
-  if (product.value) auth.actionAddtoCart(product.value);
-};
-
 onMounted(fetchProduct);
 </script>
 
 <template>
-  <div v-if="product" class="max-w-6xl mx-auto px-4 py-10">
+  <div
+    v-if="loading"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-white"
+  >
+    <lottie-player
+      src="../../src/assets/Loading Cat.json"
+      background="transparent"
+      speed="1"
+      style="width: 150px; height: 150px; margin: 0 auto"
+      loop
+      autoplay
+    ></lottie-player>
+  </div>
+  <div v-else class="max-w-6xl mx-auto px-4 py-10">
     <div class="mb-2">
       <ArrowLeftCircleIcon
         class="w-10 absolute top-17 left-3 cursor-pointer md:left-5"
@@ -109,18 +121,18 @@ onMounted(fetchProduct);
             +
           </button>
         </div>
-
-        <button
-          :disabled="product.quantity === 0"
-          @click="addToCart"
-          class="w-full text-white py-3 rounded-full transition text-lg font-semibold"
-          :class="{
-            'bg-gray-400': product.quantity === 0,
-            'bg-red-500  hover:bg-red-700': product.quantity,
-          }"
-        >
-          {{ product.quantity ? "เพิ่มลงตะกร้า" : "สินค้าหมด" }}
-        </button>
+        <router-link to="/cart">
+          <button
+            :disabled="product.quantity === 0"
+            class="w-full text-white py-3 rounded-full transition text-lg font-semibold"
+            :class="{
+              'bg-gray-400': product.quantity === 0,
+              'bg-red-500  hover:bg-red-700': product.quantity,
+            }"
+          >
+            {{ product.quantity ? "ไปยังตะกร้าสินค้า" : "สินค้าหมด" }}
+          </button>
+        </router-link>
       </div>
     </div>
   </div>
