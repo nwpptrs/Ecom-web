@@ -6,7 +6,6 @@ const props = defineProps({
     required: true,
   },
 });
-console.log(props);
 </script>
 
 <template>
@@ -40,7 +39,7 @@ console.log(props);
       <div
         v-for="(item, index) in review.order.products"
         :key="index"
-        class="flex flex-col items-center"
+        class="flex flex-col items-center min-w-[100px]"
       >
         <router-link :to="`/product/${item.product.id}`">
           <img

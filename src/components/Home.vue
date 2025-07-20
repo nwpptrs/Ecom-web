@@ -4,7 +4,10 @@ import BestSeller from "./home/BestSeller.vue";
 import Reviews from "./home/Reviews.vue";
 import { productBy } from "../api/product";
 import { listReviews } from "../api/user";
+import { useAuthStore } from "../store/auth";
 
+const store = useAuthStore();
+const getProduct = store.getProduct;
 const bestSellerProducts = ref([]);
 const reviews = ref([]);
 const loading = ref(true);
@@ -16,6 +19,7 @@ onMounted(async () => {
 
     const res2 = await listReviews();
     reviews.value = res2.data;
+    getProduct();
   } catch (e) {
     console.error(e);
   } finally {
@@ -30,7 +34,7 @@ onMounted(async () => {
     class="fixed inset-0 z-50 flex items-center justify-center bg-white"
   >
     <lottie-player
-      src="../../src/assets/Loading Cat.json"
+      src="../../public/Loading Cat.json"
       background="transparent"
       speed="1"
       style="width: 150px; height: 150px; margin: 0 auto"

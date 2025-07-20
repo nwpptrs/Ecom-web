@@ -30,7 +30,6 @@ const onSubmit = async () => {
   loading.value = true;
   try {
     const res = await createProduct(token, form);
-    console.log(res);
     toast.success(`Add Product ${res.data.product.title} Success`);
     await getProduct();
     Object.assign(form, initialstate);

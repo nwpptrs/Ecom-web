@@ -50,7 +50,6 @@ const onSubmit = async () => {
   submitloading.value = true;
   try {
     const res = await updateProduct(token, id, form);
-    console.log(res);
     toast.success(`Update Product ${res.data.product.title} Success`);
     setTimeout(() => {
       router.push("/admin/product");

@@ -23,7 +23,6 @@ const handleGetOrders = async () => {
   try {
     const res = await getOrdersAdmin(token);
     orders.value = res.data;
-    console.log(orders);
   } catch (error) {
     console.log(error);
   } finally {

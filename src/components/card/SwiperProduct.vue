@@ -37,7 +37,7 @@ const addCart = store.actionAddtoCart;
       </div>
       <div class="py-2 flex-grow flex flex-col">
         <div class="flex justify-between py-2">
-          <div class="font-semibold">{{ product.title }}</div>
+          <div class="font-semibold line-clamp-2">{{ product.title }}</div>
           <p class="text-nowrap text-xs font-medium text-gray-700 pt-1">
             เหลืออยู่: {{ product.quantity }}
           </p>

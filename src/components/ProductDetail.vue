@@ -53,7 +53,7 @@ onMounted(fetchProduct);
     class="fixed inset-0 z-50 flex items-center justify-center bg-white"
   >
     <lottie-player
-      src="../../src/assets/Loading Cat.json"
+      src="../../public/Loading Cat.json"
       background="transparent"
       speed="1"
       style="width: 150px; height: 150px; margin: 0 auto"

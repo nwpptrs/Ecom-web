@@ -78,7 +78,7 @@ onMounted(() => {
       class="fixed inset-0 z-50 flex items-center justify-center bg-white"
     >
       <lottie-player
-        src="../../src/assets/Man with task list.json"
+        src="../../public/Man with task list.json"
         background="transparent"
         speed="1"
         style="width: 200px; height: 200px; margin: 0 auto"
@@ -88,8 +88,11 @@ onMounted(() => {
     </div>
 
     <!-- No Orders -->
-    <div v-else-if="!orders.length" class="text-2xl font-light text-gray-700">
-      ยังไม่เคยมีประวัติการสั่งซื้อ!!
+    <div
+      v-else-if="!orders.length"
+      class="text-2xl font-light text-gray-700 mt-5 text-center"
+    >
+      ยังไม่มีคำสั่งซื้อในตอนนี้
     </div>
 
     <!-- Orders List -->

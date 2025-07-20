@@ -55,7 +55,7 @@ onMounted(async () => {
     class="fixed inset-0 z-50 flex items-center justify-center bg-white"
   >
     <lottie-player
-      src="../../src/assets/Profile user card.json"
+      src="../../public/Profile user card.json"
       background="transparent"
       speed="1"
       style="width: 200px; height: 200px; margin: 0 auto"

@@ -21,10 +21,11 @@ const props = defineProps({
     <div class="text-2xl mb-4">รีวิวจากผู้ใช้งาน</div>
     <Swiper
       :modules="[Navigation, Pagination, Autoplay]"
-      :slides-per-view="4"
+      slides-per-view="auto"
+      :free-mode="true"
       :space-between="20"
       :loop="true"
-      :autoplay="{ delay: 3000, disableOnInteraction: false }"
+      :autoplay="{ delay: 6000, disableOnInteraction: false }"
       :breakpoints="{
         '320': { slidesPerView: 1 },
         '640': { slidesPerView: 2 },

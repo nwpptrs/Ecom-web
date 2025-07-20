@@ -31,7 +31,6 @@ const handleSaveAddress = async () => {
     });
     toast.success("บันทึกเรียบร้อย");
     savedAddress.value = true;
-    console.log(res);
   } catch (error) {
     console.log(error);
   } finally {
@@ -74,7 +73,7 @@ onMounted(() => handleUserCart());
     class="fixed inset-0 z-50 flex items-center justify-center bg-white"
   >
     <lottie-player
-      src="../../src/assets/shopping cart.json"
+      src="../../public/shopping cart.json"
       background="transparent"
       speed="1"
       style="width: 200px; height: 200px; margin: 0 auto"

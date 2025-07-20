@@ -68,6 +68,7 @@ watch(
     if (oldPath === "/shop" && newPath !== "/shop") {
       store.resetFilters();
     }
+    isOpen.value = false;
   }
 );
 
