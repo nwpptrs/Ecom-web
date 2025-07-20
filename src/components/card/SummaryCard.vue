@@ -73,7 +73,7 @@ onMounted(() => handleUserCart());
     class="fixed inset-0 z-50 flex items-center justify-center bg-white"
   >
     <lottie-player
-      src="../../public/shopping cart.json"
+      src="/shopping-cart.json"
       background="transparent"
       speed="1"
       style="width: 200px; height: 200px; margin: 0 auto"

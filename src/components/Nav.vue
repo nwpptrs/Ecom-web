@@ -92,7 +92,7 @@ const handleLogout = () => {
 
         <div class="hidden md:flex gap-5 items-center">
           <router-link to="/" class="text-2xl font-bold">
-            <img src="../../public/logo.png" alt="logo" class="w-32" />
+            <img src="/logo.png" alt="logo" class="w-32" />
           </router-link>
 
           <router-link
@@ -216,7 +216,7 @@ const handleLogout = () => {
     :class="isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'"
   >
     <div class="flex justify-between items-center mb-4">
-      <img src="../../public/logo.png" alt="logo" class="w-24" />
+      <img src="/logo.png" alt="logo" class="w-24" />
       <button @click="toggleMobileMenu" class="text-gray-600 text-xl">✕</button>
     </div>
 
