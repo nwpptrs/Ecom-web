@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref } from "vue";
 import imageCompression from "browser-image-compression";
 import { uploadProfile } from "../../api/user";
 import { removeFile, uploadFiles } from "../../api/product";
