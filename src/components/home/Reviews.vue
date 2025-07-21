@@ -44,3 +44,14 @@ const props = defineProps({
     </Swiper>
   </div>
 </template>
+<style scoped>
+:deep(.swiper-button-prev) {
+  left: -2px;
+  color: red;
+}
+
+:deep(.swiper-button-next) {
+  right: -2px;
+  color: red;
+}
+</style>
