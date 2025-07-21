@@ -23,6 +23,10 @@ const props = defineProps({
       :modules="[Navigation, Pagination, Autoplay]"
       slides-per-view="auto"
       :space-between="20"
+      :loop="true"
+      :autoplay="{ delay: 6000, disableOnInteraction: false }"
+      :nested="true"
+      touch-events-target="container"
       :breakpoints="{
         '320': { slidesPerView: 1 },
         '640': { slidesPerView: 2 },
