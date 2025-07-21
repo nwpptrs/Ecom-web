@@ -19,6 +19,13 @@ const props = defineProps({
 <template>
   <div class="p-5" v-if="reviews.length">
     <div class="text-2xl mb-4">รีวิวจากผู้ใช้งาน</div>
+    <div class="p-5">
+      <div class="text-2xl mb-4">รีวิวจากผู้ใช้งาน</div>
+      <div v-for="review in reviews" :key="review.id" class="mb-4">
+        <ReviewCard :review="review" />
+      </div>
+    </div>
+
     <Swiper
       :modules="[Navigation, Pagination, Autoplay]"
       slides-per-view="auto"
