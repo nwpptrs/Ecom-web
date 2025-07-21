@@ -35,11 +35,14 @@ const props = defineProps({
       </div>
     </div>
 
-    <div class="flex gap-3 mt-4 overflow-x-auto">
+    <div
+      class="flex gap-3 mt-4 overflow-x-auto flex-nowrap scroll-smooth px-1"
+      style="-webkit-overflow-scrolling: touch; touch-action: pan-x"
+    >
       <div
         v-for="(item, index) in review.order.products"
         :key="index"
-        class="flex flex-col items-center min-w-[100px]"
+        class="flex flex-col items-center min-w-[100px] flex-shrink-0"
       >
         <router-link :to="`/product/${item.product.id}`">
           <img

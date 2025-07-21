@@ -22,10 +22,7 @@ const props = defineProps({
     <Swiper
       :modules="[Navigation, Pagination, Autoplay]"
       slides-per-view="auto"
-      :free-mode="true"
       :space-between="20"
-      :loop="true"
-      :autoplay="{ delay: 6000, disableOnInteraction: false }"
       :breakpoints="{
         '320': { slidesPerView: 1 },
         '640': { slidesPerView: 2 },

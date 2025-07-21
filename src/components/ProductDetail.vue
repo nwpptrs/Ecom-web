@@ -5,6 +5,7 @@ import { useAuthStore } from "../store/auth";
 import { useRoute } from "vue-router";
 import { formatCurrencyTHB } from "../utils/format";
 import { ArrowLeftCircleIcon } from "@heroicons/vue/24/outline";
+import { useToast } from "vue-toastification";
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/css";
@@ -16,6 +17,7 @@ import { Navigation, Pagination } from "swiper/modules";
 const auth = useAuthStore();
 const route = useRoute();
 const token = auth.token;
+const toast = useToast();
 const id = route.params.id;
 const product = ref(null);
 const loading = ref(true);
@@ -38,10 +40,14 @@ const currentCount = computed(() => {
 
 const increase = () => {
   if (product.value) auth.increment(product.value.id);
+  toast.clear();
+  toast.success("อัพเดทจำนวนสินค้าแล้ว");
 };
 
 const decrease = () => {
   if (product.value) auth.decrement(product.value.id);
+  toast.clear();
+  toast.success("อัพเดทจำนวนสินค้าแล้ว");
 };
 
 onMounted(fetchProduct);

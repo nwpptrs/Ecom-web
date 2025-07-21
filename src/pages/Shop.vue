@@ -7,11 +7,13 @@ import { useAuthStore } from "../store/auth";
 
 const store = useAuthStore();
 const getProduct = store.getProduct;
+const getCategory = store.getCategory;
 
 const products = computed(() => store.products);
 
 onMounted(() => {
   getProduct();
+  getCategory();
 });
 </script>
 <template>

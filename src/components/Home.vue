@@ -8,6 +8,7 @@ import { useAuthStore } from "../store/auth";
 
 const store = useAuthStore();
 const getProduct = store.getProduct;
+const getCategory = store.getCategory;
 const bestSellerProducts = ref([]);
 const reviews = ref([]);
 const loading = ref(true);
@@ -20,6 +21,7 @@ onMounted(async () => {
     const res2 = await listReviews();
     reviews.value = res2.data;
     getProduct();
+    getCategory();
   } catch (e) {
     console.error(e);
   } finally {
