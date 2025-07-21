@@ -1,5 +1,20 @@
-# Vue 3 + Vite
+# E-Commerce Project
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+โปรเจคนี้เป็นเว็บไซต์ e-commerce สำหรับจำหน่ายสินค้าออนไลน์ ที่ออกแบบมาเพื่อให้ผู้ใช้งานสามารถเลือกดูสินค้า ค้นหาสินค้า สั่งซื้อ และชำระเงินได้อย่างสะดวกและรวดเร็ว
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## ฟีเจอร์หลัก
+- แสดงรายการสินค้าหลากหลายประเภท พร้อมรายละเอียดและรูปภาพ
+- ระบบค้นหาสินค้าและกรองสินค้าได้ตามหมวดหมู่ ราคา
+- ตะกร้าสินค้าเพื่อเก็บรายการสินค้าที่เลือกซื้อ
+- ระบบจัดการคำสั่งซื้อและการชำระเงินผ่าน Stripe
+- ระบบยืนยันตัวตนและจัดการผู้ใช้งานด้วย JWT
+- ใช้ Supabase Database ในการเก็บข้อมูลสินค้าและคำสั่งซื้อ
+- เก็บและจัดการรูปภาพสินค้าโดยใช้ Cloudinary
+- รองรับการใช้งานบนมือถือและเดสก์ท็อป (Responsive Design)
+
+## เทคโนโลยีที่ใช้
+- Frontend: Vue 3, Tailwind CSS
+- Backend:  Node.js/Express
+- Databse: Supabase API
+- Payment Gateway: Stripe
+- Image/Media Storage: Cloudinary
