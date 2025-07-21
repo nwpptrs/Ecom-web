@@ -42,7 +42,11 @@ const props = defineProps({
       }"
       class="w-full"
     >
-      <SwiperSlide v-for="review in reviews" :key="review.id" class="h-auto">
+      <SwiperSlide
+        v-for="review in reviews"
+        :key="review.id"
+        class="!overflow-visible !h-auto"
+      >
         <ReviewCard :review="review" />
       </SwiperSlide>
     </Swiper>

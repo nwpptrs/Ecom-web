@@ -37,7 +37,11 @@ const props = defineProps({
 
     <div
       class="flex gap-3 mt-4 overflow-x-auto flex-nowrap scroll-smooth px-1"
-      style="-webkit-overflow-scrolling: touch; touch-action: pan-x"
+      style="
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        overscroll-behavior-x: contain;
+      "
     >
       <div
         v-for="(item, index) in review.order.products"
