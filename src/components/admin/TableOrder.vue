@@ -131,8 +131,9 @@ onMounted(() => {
                   class="px-3 py-1 rounded-full text-sm font-medium text-white whitespace-nowrap"
                   :class="{
                     'bg-gray-500': order.orderStatus === 'รอดำเนินการ',
-                    'bg-blue-500': order.orderStatus === 'กำลังดำเนินการ',
-                    'bg-green-500': order.orderStatus === 'เสร็จสิ้น',
+                    'bg-blue-500': order.orderStatus === 'กำลังเตรียมของ',
+                    'bg-yellow-500': order.orderStatus === 'กำลังจัดส่ง',
+                    'bg-green-500': order.orderStatus === 'จัดส่งสำเร็จ',
                     'bg-red-500': order.orderStatus === 'ยกเลิก',
                   }"
                 >
