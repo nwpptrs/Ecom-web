@@ -115,7 +115,7 @@ onMounted(() => {
           </div>
           <div class="flex items-center gap-2 mt-1">
             <button
-              v-if="item.orderStatus === 'เสร็จสิ้น' && !item.review"
+              v-if="item.orderStatus === 'จัดส่งสำเร็จ' && !item.review"
               @click="openReviewModal(item.id)"
               class="bg-yellow-500 px-2 py-1 rounded-full text-white text-sm font-medium cursor-pointer"
             >
@@ -125,8 +125,9 @@ onMounted(() => {
               class="px-3 py-1 rounded-full text-sm font-medium text-white"
               :class="{
                 'bg-gray-500': item.orderStatus === 'รอดำเนินการ',
-                'bg-blue-500': item.orderStatus === 'กำลังดำเนินการ',
-                'bg-green-500': item.orderStatus === 'เสร็จสิ้น',
+                'bg-blue-500': item.orderStatus === 'กำลังเตรียมของ',
+                'bg-yellow-500': item.orderStatus === 'กำลังจัดส่ง',
+                'bg-green-500': item.orderStatus === 'จัดส่งสำเร็จ',
                 'bg-red-500': item.orderStatus === 'ยกเลิก',
               }"
             >

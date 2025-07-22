@@ -76,7 +76,8 @@ onUnmounted(() => {
       <span>{{ cat.name }}</span>
     </label>
   </div>
-  <div class="mt-16">
+  <div class="mt-7">
+    <p class="text-center text-xs mb-2">สินค้าในช่วงราคา</p>
     <Slider
       v-model="priceSelected"
       :min="0"

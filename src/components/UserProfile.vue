@@ -9,11 +9,9 @@ const toast = useToast();
 const auth = useAuthStore();
 const isLoading = ref(false);
 
-// local refs แยกออกจาก auth.user
 const nameRef = ref("");
 const addressRef = ref("");
 
-// โหลดข้อมูลจาก auth.user ลง form ครั้งเดียว
 const loadInitialForm = () => {
   nameRef.value = auth.user?.name || "";
   addressRef.value = auth.user?.address || "";
@@ -21,7 +19,6 @@ const loadInitialForm = () => {
 
 const profileImageUrl = computed(() => auth.user?.pictureUrl || "");
 
-// บันทึกข้อมูลชื่อ + ที่อยู่
 const onSubmit = async () => {
   try {
     const payload = {
@@ -31,16 +28,14 @@ const onSubmit = async () => {
     await saveUserAddress(auth.token, payload);
     toast.success("อัปเดตข้อมูลผู้ใช้เรียบร้อย");
 
-    // รีเฟรชข้อมูลผู้ใช้จาก backend
     await auth.fetchUser();
-    loadInitialForm(); // sync ค่าฟอร์มให้ตรงหลังบันทึก
+    loadInitialForm();
   } catch (err) {
     console.error(err);
     toast.error("เกิดข้อผิดพลาดในการอัปเดต");
   }
 };
 
-// โหลดข้อมูลผู้ใช้ครั้งแรกตอนเข้าหน้า
 onMounted(async () => {
   isLoading.value = true;
   await auth.fetchUser();

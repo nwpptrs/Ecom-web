@@ -6,6 +6,10 @@ import {
   UserCircleIcon,
   MagnifyingGlassIcon,
   Bars3Icon,
+  LockClosedIcon,
+  UserPlusIcon,
+  ArrowLeftStartOnRectangleIcon,
+  PencilIcon,
 } from "@heroicons/vue/24/solid";
 import { useToast } from "vue-toastification";
 import debounce from "lodash/debounce";
@@ -176,28 +180,38 @@ const handleLogout = () => {
               </router-link>
               <router-link to="/login">
                 <div
-                  class="bg-red-400 px-6 py-1 rounded-xl cursor-pointer hover:bg-red-500"
+                  class="bg-red-400 px-6 py-1 rounded-xl cursor-pointer hover:bg-red-500 flex"
                   @click="handleLogout"
                 >
+                  <ArrowLeftStartOnRectangleIcon class="w-5" />
                   ออกจากระบบ
                 </div>
               </router-link>
             </div>
           </div>
         </div>
-        <div v-else class="flex gap-5 items-center">
+        <div v-else class="flex items-center">
           <router-link
             to="/register"
             exact-active-class="text-red-500"
             class="transition-all duration-300 ease-in-out px-3 py-1 rounded-lg hover:text-red-400 hover:scale-105"
-            >สมัครสมาชิก</router-link
           >
+            <div class="flex items-center gap-0.5">
+              <UserPlusIcon class="w-5" />
+              สมัครสมาชิก
+            </div>
+          </router-link>
+          |
           <router-link
             to="/login"
             exact-active-class="text-red-500"
             class="transition-all duration-300 ease-in-out px-3 py-1 rounded-lg hover:text-red-400 hover:scale-105"
-            >เข้าสู่ระบบ</router-link
           >
+            <div class="flex items-center gap-0.5">
+              <LockClosedIcon class="w-5" />
+              เข้าสู่ระบบ
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -216,8 +230,8 @@ const handleLogout = () => {
     :class="isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'"
   >
     <div class="flex justify-between items-center mb-4">
-      <img src="/logo.png" alt="logo" class="w-24" />
       <button @click="toggleMobileMenu" class="text-gray-600 text-xl">✕</button>
+      <img src="/logo.png" alt="logo" class="w-24" />
     </div>
 
     <nav>

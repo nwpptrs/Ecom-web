@@ -146,8 +146,9 @@ onMounted(() => {
                   @change="handleChangeStatus(order.id, $event.target.value)"
                 >
                   <option>รอดำเนินการ</option>
-                  <option>กำลังดำเนินการ</option>
-                  <option>เสร็จสิ้น</option>
+                  <option>กำลังเตรียมของ</option>
+                  <option>กำลังจัดส่ง</option>
+                  <option>จัดส่งสำเร็จ</option>
                   <option>ยกเลิก</option>
                 </select>
               </td>

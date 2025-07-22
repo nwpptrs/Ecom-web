@@ -1,7 +1,11 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useAuthStore } from "../../store/auth";
-import { ChevronDownIcon, UserCircleIcon } from "@heroicons/vue/24/solid";
+import {
+  ChevronDownIcon,
+  UserCircleIcon,
+  ArrowLeftStartOnRectangleIcon,
+} from "@heroicons/vue/24/solid";
 import { useToast } from "vue-toastification";
 
 const cart = computed(() => useAuthStore().carts);
@@ -65,28 +69,15 @@ const handleLogout = () => {
               </router-link>
               <router-link to="/login">
                 <div
-                  class="bg-red-400 px-6 py-1 rounded-xl cursor-pointer hover:bg-red-500"
+                  class="bg-red-400 px-6 py-1 rounded-xl cursor-pointer hover:bg-red-500 flex"
                   @click="handleLogout"
                 >
-                  ออกระบบ
+                  <ArrowLeftStartOnRectangleIcon class="w-5" />
+                  ออกจากระบบ
                 </div>
               </router-link>
             </div>
           </div>
-        </div>
-        <div v-if="!user" class="flex gap-5 items-center">
-          <router-link
-            to="/register"
-            exact-active-class="bg-red-300"
-            class="transition-all duration-300 ease-in-out px-3 py-1 rounded-lg hover:bg-red-300 hover:shadow-lg hover:scale-105"
-            >สมัครสมาชิก</router-link
-          >
-          <router-link
-            to="/login"
-            exact-active-class="bg-red-300"
-            class="transition-all duration-300 ease-in-out px-3 py-1 rounded-lg hover:bg-red-300 hover:shadow-lg hover:scale-105"
-            >เข้าสู่ระบบ</router-link
-          >
         </div>
       </div>
     </div>
